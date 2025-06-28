@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tree-sitter-yap"
-description = "YAP! Programming language"
+description = "YAP! Programming Language"
 version = "0.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "yap"]
 classifiers = [

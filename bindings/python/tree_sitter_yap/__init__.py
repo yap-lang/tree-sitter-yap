@@ -1,4 +1,4 @@
-"""YAP! Programming language"""
+"""YAP! Programming Language"""
 
 from importlib.resources import files as _files
 

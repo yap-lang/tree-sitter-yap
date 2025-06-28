@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-yap",
   "version": "0.1.0",
-  "description": "YAP! Programming language",
+  "description": "YAP! Programming Language",
   "repository": "https://github.com/yap-lang/tree-sitter-yap",
   "license": "Apache-2.0",
   "author": {

@@ -9,4 +9,4 @@ class TestLanguage(TestCase):
         try:
             tree_sitter.Language(tree_sitter_yap.language())
         except Exception:
-            self.fail("Error loading YAP! grammar")
+            self.fail("Error loading yap grammar")

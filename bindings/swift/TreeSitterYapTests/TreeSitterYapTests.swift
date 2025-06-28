@@ -7,6 +7,6 @@ final class TreeSitterYapTests: XCTestCase {
         let parser = Parser()
         let language = Language(language: tree_sitter_yap())
         XCTAssertNoThrow(try parser.setLanguage(language),
-                         "Error loading YAP! grammar")
+                         "Error loading yap grammar")
     }
 }

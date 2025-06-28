@@ -1,6 +1,6 @@
 [package]
 name = "tree-sitter-yap"
-description = "YAP! Programming language"
+description = "YAP! Programming Language"
 version = "0.1.0"
 authors = ["Valaphee <valaphee@valaphee.com>"]
 license = "Apache-2.0"
