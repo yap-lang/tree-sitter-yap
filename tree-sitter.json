@@ -4,7 +4,7 @@
     {
       "name": "yap",
       "camelcase": "Yap",
-      "title": "YAP!",
+      "title": "YAP! Programming Language",
       "scope": "source.yap",
       "file-types": [
         "yap"
@@ -22,7 +22,6 @@
   "metadata": {
     "version": "0.1.0",
     "license": "Apache-2.0",
-    "description": "YAP! Programming Language",
     "authors": [
       {
         "name": "Valaphee",
