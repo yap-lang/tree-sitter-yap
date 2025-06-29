@@ -7,12 +7,16 @@ module.exports = grammar({
   externals: $ => [$._indent, $._dedent, $._newline],
 
   rules: {
-    module: $ => repeat($._statement),
-
-    statements: $ => seq($._indent, repeat($._statement), $._dedent),
+    file: $ => repeat($._statement),
+    body: $ => seq(
+      $._indent,
+      repeat($._statement),
+      $._dedent
+    ),
     _statement: $ => choice(
       seq(
         choice(
+          $.expression,
           $.assign_statement,
           $.return_statement,
         ),
@@ -22,29 +26,29 @@ module.exports = grammar({
     ),
 
     assign_statement: $ => seq(
-      field('lhs', $.identifier),
-      '=',
-      field('rhs', $.expression),
+      field('variable', $.identifier),
+      ':',
+      field('value', $.expression),
     ),
 
     if_statement: $ => seq(
       'if',
       field('condition', $.expression),
       ':',
-      field('then', $.statements),
-      repeat(field('otherwise', $.elif_clause)),
-      optional(field('otherwise', $.else_clause)),
+      field('body', $.body),
+      repeat($.elif_clause),
+      optional($.else_clause),
     ),
     elif_clause: $ => seq(
       'elif',
       field('condition', $.expression),
       ':',
-      field('then', $.statements),
+      field('body', $.body),
     ),
     else_clause: $ => seq(
       'else',
       ':',
-      field('then', $.statements),
+      field('body', $.body),
     ),
 
     return_statement: $ => seq(
@@ -52,7 +56,21 @@ module.exports = grammar({
       optional($.expression),
     ),
 
-    expression: $ => choice($.identifier),
-    identifier: (_) => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+    expression: $ => choice(
+      $.identifier,
+      $.number,
+      $.string,
+      $.call,
+      $.body,
+    ),
+    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+    number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
+    string: $ => seq('"', $.string_content, '"'),
+    string_content: _ => token(prec(-1, /(?:[^"\\]|\\.)*/)),
+    call: $ => prec.left(seq(
+      field('argument', $.expression),
+      field('function', $.identifier),
+      optional(field('argument', $.expression)),
+    )),
   },
 });
