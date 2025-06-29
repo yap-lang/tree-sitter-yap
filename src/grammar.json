@@ -69,7 +69,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "variable",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -80,7 +80,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "function",
+              "name": "type",
               "content": {
                 "type": "SYMBOL",
                 "name": "array_associative"
@@ -97,7 +97,7 @@
         },
         {
           "type": "FIELD",
-          "name": "value",
+          "name": "body",
           "content": {
             "type": "SYMBOL",
             "name": "expression"

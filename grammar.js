@@ -7,7 +7,7 @@ module.exports = grammar({
   externals: $ => [$._indent, $._dedent, $._newline],
 
   conflicts: $ => [
-    [$.array, $.array_associative]
+    [$.array, $.array_associative],
   ],
 
   rules: {
@@ -15,7 +15,7 @@ module.exports = grammar({
     body: $ => seq(
       $._indent,
       repeat($._statement),
-      $._dedent
+      $._dedent,
     ),
     _statement: $ => choice(
       seq(
@@ -30,10 +30,10 @@ module.exports = grammar({
     ),
 
     assign: $ => seq(
-      field('variable', $.identifier),
-      optional(field('function', $.array_associative)),
+      field('name', $.identifier),
+      optional(field('type', $.array_associative)),
       ':',
-      field('value', $.expression),
+      field('body', $.expression),
     ),
 
     if: $ => seq(

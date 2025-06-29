@@ -259,8 +259,8 @@ enum ts_field_identifiers {
   field_body = 2,
   field_condition = 3,
   field_function = 4,
-  field_value = 5,
-  field_variable = 6,
+  field_name = 5,
+  field_type = 6,
 };
 
 static const char * const ts_field_names[] = {
@@ -269,8 +269,8 @@ static const char * const ts_field_names[] = {
   [field_body] = "body",
   [field_condition] = "condition",
   [field_function] = "function",
-  [field_value] = "value",
-  [field_variable] = "variable",
+  [field_name] = "name",
+  [field_type] = "type",
 };
 
 static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
@@ -287,8 +287,8 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_argument, 0},
     {field_function, 1},
   [2] =
-    {field_value, 2},
-    {field_variable, 0},
+    {field_body, 2},
+    {field_name, 0},
   [4] =
     {field_argument, 0},
     {field_argument, 2},
@@ -297,9 +297,9 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_body, 3},
     {field_condition, 1},
   [9] =
-    {field_function, 1},
-    {field_value, 3},
-    {field_variable, 0},
+    {field_body, 3},
+    {field_name, 0},
+    {field_type, 1},
   [12] =
     {field_body, 2},
 };

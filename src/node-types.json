@@ -37,17 +37,7 @@
     "type": "assign",
     "named": true,
     "fields": {
-      "function": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "array_associative",
-            "named": true
-          }
-        ]
-      },
-      "value": {
+      "body": {
         "multiple": false,
         "required": true,
         "types": [
@@ -57,12 +47,22 @@
           }
         ]
       },
-      "variable": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array_associative",
             "named": true
           }
         ]
