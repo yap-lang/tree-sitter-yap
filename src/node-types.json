@@ -1,8 +1,52 @@
 [
   {
-    "type": "assign_statement",
+    "type": "array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array_associative",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assign",
     "named": true,
     "fields": {
+      "function": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array_associative",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
         "required": true,
@@ -34,7 +78,7 @@
       "required": false,
       "types": [
         {
-          "type": "assign_statement",
+          "type": "assign",
           "named": true
         },
         {
@@ -42,11 +86,11 @@
           "named": true
         },
         {
-          "type": "if_statement",
+          "type": "if",
           "named": true
         },
         {
-          "type": "return_statement",
+          "type": "return",
           "named": true
         }
       ]
@@ -79,7 +123,7 @@
     }
   },
   {
-    "type": "elif_clause",
+    "type": "elif",
     "named": true,
     "fields": {
       "body": {
@@ -105,7 +149,7 @@
     }
   },
   {
-    "type": "else_clause",
+    "type": "else",
     "named": true,
     "fields": {
       "body": {
@@ -128,6 +172,14 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "array_associative",
+          "named": true
+        },
         {
           "type": "body",
           "named": true
@@ -161,7 +213,7 @@
       "required": false,
       "types": [
         {
-          "type": "assign_statement",
+          "type": "assign",
           "named": true
         },
         {
@@ -169,18 +221,18 @@
           "named": true
         },
         {
-          "type": "if_statement",
+          "type": "if",
           "named": true
         },
         {
-          "type": "return_statement",
+          "type": "return",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "if_statement",
+    "type": "if",
     "named": true,
     "fields": {
       "body": {
@@ -209,18 +261,18 @@
       "required": false,
       "types": [
         {
-          "type": "elif_clause",
+          "type": "elif",
           "named": true
         },
         {
-          "type": "else_clause",
+          "type": "else",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "return_statement",
+    "type": "return",
     "named": true,
     "fields": {},
     "children": {
@@ -237,20 +289,22 @@
   {
     "type": "string",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "string_content",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ",",
     "named": false
   },
   {
@@ -280,9 +334,5 @@
   {
     "type": "return",
     "named": false
-  },
-  {
-    "type": "string_content",
-    "named": true
   }
 ]

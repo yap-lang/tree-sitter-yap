@@ -6,6 +6,10 @@ module.exports = grammar({
 
   externals: $ => [$._indent, $._dedent, $._newline],
 
+  conflicts: $ => [
+    [$.array, $.array_associative]
+  ],
+
   rules: {
     file: $ => repeat($._statement),
     body: $ => seq(
@@ -17,41 +21,42 @@ module.exports = grammar({
       seq(
         choice(
           $.expression,
-          $.assign_statement,
-          $.return_statement,
+          $.assign,
+          $.return,
         ),
         $._newline,
       ),
-      $.if_statement,
+      $.if,
     ),
 
-    assign_statement: $ => seq(
+    assign: $ => seq(
       field('variable', $.identifier),
+      optional(field('function', $.array_associative)),
       ':',
       field('value', $.expression),
     ),
 
-    if_statement: $ => seq(
+    if: $ => seq(
       'if',
       field('condition', $.expression),
       ':',
       field('body', $.body),
-      repeat($.elif_clause),
-      optional($.else_clause),
+      repeat($.elif),
+      optional($.else),
     ),
-    elif_clause: $ => seq(
+    elif: $ => seq(
       'elif',
       field('condition', $.expression),
       ':',
       field('body', $.body),
     ),
-    else_clause: $ => seq(
+    else: $ => seq(
       'else',
       ':',
       field('body', $.body),
     ),
 
-    return_statement: $ => seq(
+    return: $ => seq(
       'return',
       optional($.expression),
     ),
@@ -60,13 +65,16 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.string,
+      $.array,
+      $.array_associative,
       $.call,
       $.body,
     ),
     identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
     number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
-    string: $ => seq('"', $.string_content, '"'),
-    string_content: _ => token(prec(-1, /(?:[^"\\]|\\.)*/)),
+    string: $ => seq('"', '"'),
+    array: $ => seq('(', optional(sep1(',', $.expression)), ')'),
+    array_associative: $ => seq('(', optional(sep1(',', seq($.identifier, ':', $.expression))), ')'),
     call: $ => prec.left(seq(
       field('argument', $.expression),
       field('function', $.identifier),
@@ -74,3 +82,7 @@ module.exports = grammar({
     )),
   },
 });
+
+function sep1(sep, rule) {
+  return seq(rule, repeat(seq(sep, rule)));
+}
