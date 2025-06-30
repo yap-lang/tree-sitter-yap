@@ -1,5 +1,6 @@
-Node: (next: Node, prev: Node)
-Queue: (head: Node, tail: Node)
+Queue (Data: Type):
+    Node: (next: Node, prev: Node, data: Data)
+    (head: Node, tail: Node)
 
 pushFront (queue: Queue, node: Node):
     node.next: queue.head
@@ -11,7 +12,7 @@ pushFront (queue: Queue, node: Node):
     queue.head: node
 
 pushBack (queue: Queue, node: Node):
-    node.prev: queue.tail
+    node.prev: tail
     node.next: null
     if queue.tail:
         queue.tail.prev: node
@@ -36,3 +37,5 @@ popFront (queue: Queue):
 popBack (queue: Queue):
     if queue.tail:
         queue delete (queue.tail)
+
+myQueue (u32 Queue): ()
