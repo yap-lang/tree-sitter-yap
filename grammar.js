@@ -20,25 +20,24 @@ module.exports = grammar({
     _statement: $ => choice(
       seq(
         choice(
-          $.expression,
-          $.assign,
-          $.return,
+          $._expression,
+          $.assignment,
         ),
         $._newline,
       ),
       $.if,
     ),
 
-    assign: $ => seq(
-      field('name', $.identifier),
+    assignment: $ => seq(
+      field('name', $.variable),
       optional(field('type', $.array_associative)),
       ':',
-      field('body', $.expression),
+      field('body', $._expression),
     ),
 
     if: $ => seq(
       'if',
-      field('condition', $.expression),
+      field('condition', $._expression),
       ':',
       field('body', $.body),
       repeat($.elif),
@@ -46,7 +45,7 @@ module.exports = grammar({
     ),
     elif: $ => seq(
       'elif',
-      field('condition', $.expression),
+      field('condition', $._expression),
       ':',
       field('body', $.body),
     ),
@@ -56,13 +55,8 @@ module.exports = grammar({
       field('body', $.body),
     ),
 
-    return: $ => seq(
-      'return',
-      optional($.expression),
-    ),
-
-    expression: $ => choice(
-      $.identifier,
+    _expression: $ => choice(
+      $.variable,
       $.number,
       $.string,
       $.array,
@@ -70,16 +64,26 @@ module.exports = grammar({
       $.call,
       $.body,
     ),
-    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+    variable: $ => sep1('.', $.identifier),
     number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     string: $ => seq('"', '"'),
-    array: $ => seq('(', optional(sep1(',', $.expression)), ')'),
-    array_associative: $ => seq('(', optional(sep1(',', seq($.identifier, ':', $.expression))), ')'),
+    array: $ => seq('(', optional(sep1(',', $._expression)), ')'),
+    array_associative: $ => seq(
+      '(',
+      optional(sep1(',', seq(
+        field('name', $.identifier),
+        ':',
+        field('body', $._expression),
+      ))),
+      ')'
+    ),
     call: $ => prec.left(seq(
-      field('argument', $.expression),
+      field('argument', $._expression),
       field('function', $.identifier),
-      optional(field('argument', $.expression)),
+      optional(field('argument', $._expression)),
     )),
+
+    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
   },
 });
 

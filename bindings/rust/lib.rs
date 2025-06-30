@@ -1,4 +1,4 @@
-//! This crate provides YAP! language support for the [tree-sitter] parsing library.
+//! This crate provides yap language support for the [tree-sitter] parsing library.
 //!
 //! Typically, you will use the [`LANGUAGE`] constant to add this language to a
 //! tree-sitter [`Parser`], and then use the parser to parse some code:
