@@ -9,12 +9,7 @@
       "file-types": [
         "yap"
       ],
-      "highlights": [
-        "queries/highlights.scm"
-      ],
-      "tags": [
-        "queries/tags.scm"
-      ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^yap$",
       "class-name": "TreeSitterYap"
     }
