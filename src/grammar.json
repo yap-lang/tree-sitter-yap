@@ -10,7 +10,7 @@
         "name": "_statement"
       }
     },
-    "body": {
+    "statements": {
       "type": "SEQ",
       "members": [
         {
@@ -41,11 +41,11 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "_expression"
+                  "name": "assignment"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "assignment"
+                  "name": "_expression"
                 }
               ]
             },
@@ -57,7 +57,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "if"
+          "name": "statement_if"
         }
       ]
     },
@@ -106,7 +106,7 @@
         ]
       }
     },
-    "if": {
+    "statement_if": {
       "type": "SEQ",
       "members": [
         {
@@ -115,7 +115,7 @@
         },
         {
           "type": "FIELD",
-          "name": "condition",
+          "name": "cond",
           "content": {
             "type": "SYMBOL",
             "name": "_expression"
@@ -130,14 +130,14 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "body"
+            "name": "statements"
           }
         },
         {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "elif"
+            "name": "clause_elif"
           }
         },
         {
@@ -145,7 +145,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "else"
+              "name": "clause_else"
             },
             {
               "type": "BLANK"
@@ -154,7 +154,7 @@
         }
       ]
     },
-    "elif": {
+    "clause_elif": {
       "type": "SEQ",
       "members": [
         {
@@ -163,7 +163,7 @@
         },
         {
           "type": "FIELD",
-          "name": "condition",
+          "name": "cond",
           "content": {
             "type": "SYMBOL",
             "name": "_expression"
@@ -178,12 +178,12 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "body"
+            "name": "statements"
           }
         }
       ]
     },
-    "else": {
+    "clause_else": {
       "type": "SEQ",
       "members": [
         {
@@ -199,7 +199,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "body"
+            "name": "statements"
           }
         }
       ]
@@ -213,34 +213,29 @@
         },
         {
           "type": "SYMBOL",
-          "name": "number"
+          "name": "literal_number"
         },
         {
           "type": "SYMBOL",
-          "name": "string"
+          "name": "literal_string"
         },
         {
           "type": "SYMBOL",
-          "name": "array"
+          "name": "expression_array"
         },
         {
           "type": "SYMBOL",
-          "name": "array_associative"
+          "name": "expression_array_associative"
         },
         {
           "type": "SYMBOL",
-          "name": "call"
+          "name": "expression_call"
         },
         {
           "type": "SYMBOL",
-          "name": "body"
+          "name": "statements"
         }
       ]
-    },
-    "identifier": {
-      "type": "PATTERN",
-      "value": "[_\\p{XID_Start}][_\\p{XID_Continue}]*",
-      "flags": "u"
     },
     "variable": {
       "type": "SEQ",
@@ -271,11 +266,11 @@
         }
       ]
     },
-    "number": {
+    "literal_number": {
       "type": "PATTERN",
       "value": "[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?"
     },
-    "string": {
+    "literal_string": {
       "type": "SEQ",
       "members": [
         {
@@ -288,7 +283,7 @@
         }
       ]
     },
-    "array": {
+    "expression_array": {
       "type": "SEQ",
       "members": [
         {
@@ -334,7 +329,7 @@
         }
       ]
     },
-    "array_associative": {
+    "expression_array_associative": {
       "type": "SEQ",
       "members": [
         {
@@ -422,7 +417,7 @@
         }
       ]
     },
-    "call": {
+    "expression_call": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -463,6 +458,11 @@
         ]
       }
     },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[_\\p{XID_Start}][_\\p{XID_Continue}]*",
+      "flags": "u"
+    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -492,8 +492,8 @@
   ],
   "conflicts": [
     [
-      "array",
-      "array_associative"
+      "expression_array",
+      "expression_array_associative"
     ]
   ],
   "precedences": [],

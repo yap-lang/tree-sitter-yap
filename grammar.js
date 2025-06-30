@@ -16,7 +16,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.array, $.array_associative],
+    [$.expression_array, $.expression_array_associative],
   ],
 
   externals: $ => [
@@ -33,7 +33,7 @@ module.exports = grammar({
 
   rules: {
     file: $ => repeat($._statement),
-    body: $ => seq(
+    statements: $ => seq(
       $._indent,
       repeat($._statement),
       $._dedent,
@@ -41,12 +41,12 @@ module.exports = grammar({
     _statement: $ => choice(
       seq(
         choice(
-          $._expression,
           $.assignment,
+          $._expression,
         ),
         $._newline,
       ),
-      $.if,
+      $.statement_if,
     ),
 
     assignment: $ => prec(-1, seq(
@@ -56,41 +56,40 @@ module.exports = grammar({
       field('body', $._expression),
     )),
 
-    if: $ => seq(
+    statement_if: $ => seq(
       'if',
-      field('condition', $._expression),
+      field('cond', $._expression),
       ':',
-      field('body', $.body),
-      repeat($.elif),
-      optional($.else),
+      field('body', $.statements),
+      repeat($.clause_elif),
+      optional($.clause_else),
     ),
-    elif: $ => seq(
+    clause_elif: $ => seq(
       'elif',
-      field('condition', $._expression),
+      field('cond', $._expression),
       ':',
-      field('body', $.body),
+      field('body', $.statements),
     ),
-    else: $ => seq(
+    clause_else: $ => seq(
       'else',
       ':',
-      field('body', $.body),
+      field('body', $.statements),
     ),
 
     _expression: $ => choice(
       $.variable,
-      $.number, // TODO: always invalid as type
-      $.string, // TODO: always invalid as type
-      $.array, // TODO: always invalid as condition
-      $.array_associative, // TODO: always invalid as condition
-      $.call,
-      $.body,
+      $.literal_number,
+      $.literal_string,
+      $.expression_array,
+      $.expression_array_associative,
+      $.expression_call,
+      $.statements,
     ),
-    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
     variable: $ => seq($.identifier, repeat(seq('.', field('property', $.identifier)))),
-    number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
-    string: $ => seq('"', '"'),
-    array: $ => seq('(', optional(sep1(',', $._expression)), ')'),
-    array_associative: $ => seq(
+    literal_number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
+    literal_string: $ => seq('"', '"'),
+    expression_array: $ => seq('(', optional(sep1(',', $._expression)), ')'),
+    expression_array_associative: $ => seq(
       '(',
       optional(sep1(',', seq(
         field('name', $.identifier),
@@ -99,12 +98,13 @@ module.exports = grammar({
       ))),
       ')',
     ),
-    call: $ => prec.left(seq(
+    expression_call: $ => prec.left(seq(
       field('argument', $._expression),
       field('function', $.identifier),
       optional(field('argument', $._expression)),
     )),
 
+    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
     comment: _ => token(seq('#', /.*/)),
   },
 });
