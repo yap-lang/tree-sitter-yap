@@ -57,21 +57,18 @@ bool tree_sitter_yap_external_scanner_scan(void *payload, TSLexer *lexer, const 
 
     lexer->mark_end(lexer);
 
-    uint16_t indent = 0;
     bool eol = false;
+    uint16_t indent = 0;
     for (;;) {
-        if (lexer->lookahead == '\n') {
-            indent = 0;
-            eol = true;
-            lexer->advance(lexer, true);
-        } else if (lexer->lookahead == ' ') {
+        if (lexer->lookahead == ' ') {
             indent += 1;
             lexer->advance(lexer, true);
-        } else if (lexer->lookahead == '\r' || lexer->lookahead == '\f') {
-            indent = 0;
-            lexer->advance(lexer, true);
         } else if (lexer->lookahead == '\t') {
-            indent += 8;
+            indent += 4;
+            lexer->advance(lexer, true);
+        } else if (lexer->lookahead == '\r' || lexer->lookahead == '\n') {
+            eol = true;
+            indent = 0;
             lexer->advance(lexer, true);
         } else if (lexer->eof(lexer)) {
             indent = 0;

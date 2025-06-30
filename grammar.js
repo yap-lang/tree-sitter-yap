@@ -4,11 +4,22 @@
 module.exports = grammar({
   name: 'yap',
 
-  externals: $ => [$._indent, $._dedent, $._newline],
+  extras: $ => [
+    $.comment,
+    /[\r\n\t ]/,
+  ],
+
+  externals: $ => [
+    $._indent,
+    $._dedent,
+    $._newline,
+  ],
 
   conflicts: $ => [
     [$.array, $.array_associative],
   ],
+
+  word: $ => $.identifier,
 
   rules: {
     file: $ => repeat($._statement),
@@ -28,12 +39,12 @@ module.exports = grammar({
       $.if,
     ),
 
-    assignment: $ => seq(
+    assignment: $ => prec(-1, seq(
       field('name', $.variable),
-      optional(field('type', $.array_associative)),
+      optional(field('type', $._expression)),
       ':',
       field('body', $._expression),
-    ),
+    )),
 
     if: $ => seq(
       'if',
@@ -57,10 +68,10 @@ module.exports = grammar({
 
     _expression: $ => choice(
       $.variable,
-      $.number,
-      $.string,
-      $.array,
-      $.array_associative,
+      $.number, // TODO: always invalid as type
+      $.string, // TODO: always invalid as type
+      $.array, // TODO: always invalid as condition
+      $.array_associative, // TODO: always invalid as condition
       $.call,
       $.body,
     ),
@@ -84,6 +95,8 @@ module.exports = grammar({
     )),
 
     identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+
+    comment: _ => token(seq('#', /.*/)),
   },
 });
 

@@ -141,7 +141,31 @@
         "required": false,
         "types": [
           {
+            "type": "array",
+            "named": true
+          },
+          {
             "type": "array_associative",
+            "named": true
+          },
+          {
+            "type": "body",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "variable",
             "named": true
           }
         ]
@@ -477,6 +501,11 @@
   {
     "type": ":",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "extra": true
   },
   {
     "type": "elif",
