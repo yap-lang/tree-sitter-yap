@@ -64,7 +64,7 @@ module.exports = grammar({
       $.call,
       $.body,
     ),
-    variable: $ => sep1('.', $.identifier),
+    variable: $ => seq($.identifier, repeat(seq('.', field('property', $.identifier)))),
     number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     string: $ => seq('"', '"'),
     array: $ => seq('(', optional(sep1(',', $._expression)), ')'),
