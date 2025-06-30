@@ -1,1 +1,1 @@
-(call function: (_) @name) @definition.function
+(call function: (_) @name) @reference.call
