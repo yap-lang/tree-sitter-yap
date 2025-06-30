@@ -1,3 +1,9 @@
+/**
+ * @file YAP! grammar for tree-sitter
+ * @author Valaphee <valaphee@valaphee.com>
+ * @license Apache-2.0
+ */
+
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
@@ -9,17 +15,21 @@ module.exports = grammar({
     /[\r\n\t ]/,
   ],
 
+  conflicts: $ => [
+    [$.array, $.array_associative],
+  ],
+
   externals: $ => [
     $._indent,
     $._dedent,
     $._newline,
   ],
 
-  conflicts: $ => [
-    [$.array, $.array_associative],
-  ],
-
   word: $ => $.identifier,
+
+  supertypes: $ => [
+    $._expression,
+  ],
 
   rules: {
     file: $ => repeat($._statement),
@@ -75,6 +85,7 @@ module.exports = grammar({
       $.call,
       $.body,
     ),
+    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
     variable: $ => seq($.identifier, repeat(seq('.', field('property', $.identifier)))),
     number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     string: $ => seq('"', '"'),
@@ -86,7 +97,7 @@ module.exports = grammar({
         ':',
         field('body', $._expression),
       ))),
-      ')'
+      ')',
     ),
     call: $ => prec.left(seq(
       field('argument', $._expression),
@@ -94,12 +105,18 @@ module.exports = grammar({
       optional(field('argument', $._expression)),
     )),
 
-    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
-
     comment: _ => token(seq('#', /.*/)),
   },
 });
 
-function sep1(sep, rule) {
-  return seq(rule, repeat(seq(sep, rule)));
+/**
+ * Creates a rule that matches one-or-more occurences of a given rule separated by the separator.
+ *
+ * @param {RuleOrLiteral} separator - separator by which the rules are separated
+ * @param {RuleOrLiteral} rule - rule to repeat, one or more times
+ *
+ * @returns {SeqRule}
+ */
+function sep1(separator, rule) {
+  return seq(rule, repeat(seq(separator, rule)));
 }

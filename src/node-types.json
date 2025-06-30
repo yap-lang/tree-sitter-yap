@@ -1,5 +1,39 @@
 [
   {
+    "type": "_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "array",
+        "named": true
+      },
+      {
+        "type": "array_associative",
+        "named": true
+      },
+      {
+        "type": "body",
+        "named": true
+      },
+      {
+        "type": "call",
+        "named": true
+      },
+      {
+        "type": "number",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      },
+      {
+        "type": "variable",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "array",
     "named": true,
     "fields": {},
@@ -8,31 +42,7 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
-          "type": "array_associative",
-          "named": true
-        },
-        {
-          "type": "body",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -47,31 +57,7 @@
         "required": false,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -97,31 +83,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -141,31 +103,7 @@
         "required": false,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -181,11 +119,7 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
-          "type": "array_associative",
+          "type": "_expression",
           "named": true
         },
         {
@@ -193,27 +127,7 @@
           "named": true
         },
         {
-          "type": "body",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "if",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -228,31 +142,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -288,31 +178,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -345,11 +211,7 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
-          "type": "array_associative",
+          "type": "_expression",
           "named": true
         },
         {
@@ -357,27 +219,7 @@
           "named": true
         },
         {
-          "type": "body",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "if",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -402,31 +244,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "array_associative",
-            "named": true
-          },
-          {
-            "type": "body",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "_expression",
             "named": true
           }
         ]

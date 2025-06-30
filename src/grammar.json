@@ -237,6 +237,11 @@
         }
       ]
     },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[_\\p{XID_Start}][_\\p{XID_Continue}]*",
+      "flags": "u"
+    },
     "variable": {
       "type": "SEQ",
       "members": [
@@ -458,10 +463,6 @@
         ]
       }
     },
-    "identifier": {
-      "type": "PATTERN",
-      "value": "[_\\p{XID_Start}][_\\p{XID_Continue}]*"
-    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -511,6 +512,8 @@
     }
   ],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "_expression"
+  ],
   "reserved": {}
 }
