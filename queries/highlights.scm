@@ -1,8 +1,8 @@
-(identifier property: (_)? @property) @variable
-((identifier) @type (#match? @type "^_*[A-Z][A-Za-z0-9_]*$"))
+(name field: (_)? @property) @variable
+((name) @type (#match? @type "^_*[A-Z][A-Za-z0-9_]*$"))
 (literal_number) @number
 (literal_string) @string
-(expression_call function: (_) @function.call)
+(expression_call name: (_) @function.call)
 
 [
   "if"

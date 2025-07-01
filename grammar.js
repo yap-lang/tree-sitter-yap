@@ -21,20 +21,21 @@ module.exports = grammar({
     $._newline,
   ],
 
-  word: $ => $.identifier,
+  word: $ => $.word,
 
   supertypes: $ => [
-    // $._statement,
     $._expression,
   ],
 
   rules: {
     file: $ => repeat($._statement),
+
     statements: $ => seq(
       $._indent,
       repeat($._statement),
       $._dedent,
     ),
+
     _statement: $ => choice(
       seq(
         choice(
@@ -46,14 +47,12 @@ module.exports = grammar({
       $.statement_if,
       $.statement_for,
     ),
-
     assignment: $ => prec(-1, seq(
-      field('name', $.identifier),
+      field('name', $.name),
       optional(field('type', $._expression)),
       ':',
       field('body', $._expression),
     )),
-
     statement_if: $ => seq(
       'if',
       field('cond', $._expression),
@@ -83,7 +82,6 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
-      $.identifier,
       $.literal_number,
       $.literal_string,
       $.expression_unit,
@@ -92,7 +90,6 @@ module.exports = grammar({
       $.expression_call,
       $.statements,
     ),
-    identifier: _ => /[._\p{XID_Start}][._\p{XID_Continue}]*/u,
     literal_number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     literal_string: $ => seq('"', $.string_content, '"'),
     string_content: $ => /[^"]*/,
@@ -101,19 +98,21 @@ module.exports = grammar({
     expression_array_associative: $ => seq(
       '(',
       sep1(',', seq(
-        field('name', $.identifier),
+        field('name', $.name),
         ':',
         field('body', $._expression),
       )),
       ')',
     ),
     expression_call: $ => prec.left(seq(
-      field('args', $._expression),
-      field('name', $.identifier),
+      optional(field('args', $._expression)),
+      field('name', $.name),
       optional(field('args', $._expression)),
     )),
 
     comment: _ => token(seq('#', /.*/)),
+    word: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
+    name: $ => seq($.word, repeat(seq('.', field('field', $.word)))),
   },
 });
 
