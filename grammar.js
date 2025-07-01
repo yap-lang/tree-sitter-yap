@@ -12,11 +12,7 @@ module.exports = grammar({
 
   extras: $ => [
     $.comment,
-    /[\r\n\t ]/,
-  ],
-
-  conflicts: $ => [
-    [$.expression_array, $.expression_array_associative],
+    /[\s]/,
   ],
 
   externals: $ => [
@@ -28,6 +24,7 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   supertypes: $ => [
+    // $._statement,
     $._expression,
   ],
 
@@ -47,10 +44,11 @@ module.exports = grammar({
         $._newline,
       ),
       $.statement_if,
+      $.statement_for,
     ),
 
     assignment: $ => prec(-1, seq(
-      field('name', $.variable),
+      field('name', $.identifier),
       optional(field('type', $._expression)),
       ':',
       field('body', $._expression),
@@ -61,50 +59,60 @@ module.exports = grammar({
       field('cond', $._expression),
       ':',
       field('body', $.statements),
-      repeat($.clause_elif),
-      optional($.clause_else),
+      repeat($.statement_elif),
+      optional($.statement_else),
     ),
-    clause_elif: $ => seq(
+    statement_elif: $ => seq(
       'elif',
       field('cond', $._expression),
       ':',
       field('body', $.statements),
     ),
-    clause_else: $ => seq(
+    statement_else: $ => seq(
       'else',
+      ':',
+      field('body', $.statements),
+    ),
+    statement_for: $ => seq(
+      'for',
+      field('dst', $._expression),
+      'in',
+      field('src', $._expression),
       ':',
       field('body', $.statements),
     ),
 
     _expression: $ => choice(
-      $.variable,
+      $.identifier,
       $.literal_number,
       $.literal_string,
+      $.expression_unit,
       $.expression_array,
       $.expression_array_associative,
       $.expression_call,
       $.statements,
     ),
-    variable: $ => seq($.identifier, repeat(seq('.', field('property', $.identifier)))),
+    identifier: _ => /[._\p{XID_Start}][._\p{XID_Continue}]*/u,
     literal_number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
-    literal_string: $ => seq('"', '"'),
-    expression_array: $ => seq('(', optional(sep1(',', $._expression)), ')'),
+    literal_string: $ => seq('"', $.string_content, '"'),
+    string_content: $ => /[^"]*/,
+    expression_unit: $ => '()',
+    expression_array: $ => seq('(', sep1(',', $._expression), ')'),
     expression_array_associative: $ => seq(
       '(',
-      optional(sep1(',', seq(
+      sep1(',', seq(
         field('name', $.identifier),
         ':',
         field('body', $._expression),
-      ))),
+      )),
       ')',
     ),
     expression_call: $ => prec.left(seq(
-      field('argument', $._expression),
-      field('function', $.identifier),
-      optional(field('argument', $._expression)),
+      field('args', $._expression),
+      field('name', $.identifier),
+      optional(field('args', $._expression)),
     )),
 
-    identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
     comment: _ => token(seq('#', /.*/)),
   },
 });
