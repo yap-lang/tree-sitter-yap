@@ -1,14 +1,20 @@
 (name field: (_)? @property) @variable
-((name) @type (#match? @type "^_*[A-Z][A-Za-z0-9_]*$"))
+
+(assignment name: (_) @function.definition type: (expression_array_associative))
+(expression_call args: (_) name: (_) @function)
+
+((name) @type (#match? @type "^[A-Z]"))
+((name) @type.builtin (#match? @type.builtin "^(?:[ui](?:64|32|16|8)|f(?:64|32)|any)$"))
+
 (literal_number) @number
 (literal_string) @string
-(expression_call name: (_) @function.call)
 
 [
+  "return"
   "if"
   "elif"
   "else"
-  "for"
+  "while"
 ] @keyword
 
 [

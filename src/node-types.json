@@ -26,10 +26,6 @@
       {
         "type": "literal_string",
         "named": true
-      },
-      {
-        "type": "statements",
-        "named": true
       }
     ]
   },
@@ -43,6 +39,10 @@
         "types": [
           {
             "type": "_expression",
+            "named": true
+          },
+          {
+            "type": "statements",
             "named": true
           }
         ]
@@ -154,11 +154,11 @@
           "named": true
         },
         {
-          "type": "statement_for",
+          "type": "statement_if",
           "named": true
         },
         {
-          "type": "statement_if",
+          "type": "statement_while",
           "named": true
         }
       ]
@@ -248,42 +248,6 @@
     }
   },
   {
-    "type": "statement_for",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "statements",
-            "named": true
-          }
-        ]
-      },
-      "dst": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      },
-      "src": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "statement_if",
     "named": true,
     "fields": {
@@ -324,6 +288,32 @@
     }
   },
   {
+    "type": "statement_while",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statements",
+            "named": true
+          }
+        ]
+      },
+      "cond": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "statements",
     "named": true,
     "fields": {},
@@ -340,11 +330,11 @@
           "named": true
         },
         {
-          "type": "statement_for",
+          "type": "statement_if",
           "named": true
         },
         {
-          "type": "statement_if",
+          "type": "statement_while",
           "named": true
         }
       ]
@@ -392,15 +382,7 @@
     "named": true
   },
   {
-    "type": "for",
-    "named": false
-  },
-  {
     "type": "if",
-    "named": false
-  },
-  {
-    "type": "in",
     "named": false
   },
   {
@@ -410,6 +392,10 @@
   {
     "type": "string_content",
     "named": true
+  },
+  {
+    "type": "while",
+    "named": false
   },
   {
     "type": "word",

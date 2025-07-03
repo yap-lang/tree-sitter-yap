@@ -45,14 +45,20 @@ module.exports = grammar({
         $._newline,
       ),
       $.statement_if,
-      $.statement_for,
+      $.statement_while,
     ),
-    assignment: $ => prec(-1, seq(
+
+    assignment: $ => seq(
       field('name', $.name),
       optional(field('type', $._expression)),
       ':',
+      field('body', choice($._expression, $.statements)),
+    ),
+    statement_return: $ => seq(
+      'return',
       field('body', $._expression),
-    )),
+    ),
+
     statement_if: $ => seq(
       'if',
       field('cond', $._expression),
@@ -72,11 +78,9 @@ module.exports = grammar({
       ':',
       field('body', $.statements),
     ),
-    statement_for: $ => seq(
-      'for',
-      field('dst', $._expression),
-      'in',
-      field('src', $._expression),
+    statement_while: $ => seq(
+      'while',
+      field('cond', $._expression),
       ':',
       field('body', $.statements),
     ),
@@ -88,7 +92,6 @@ module.exports = grammar({
       $.expression_array,
       $.expression_array_associative,
       $.expression_call,
-      $.statements,
     ),
     literal_number: _ => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     literal_string: $ => seq('"', $.string_content, '"'),
