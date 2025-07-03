@@ -40,7 +40,7 @@ module.exports = grammar({
       seq(
         choice(
           $.assignment,
-          $._expression,
+          $.statement_return,
         ),
         $._newline,
       ),

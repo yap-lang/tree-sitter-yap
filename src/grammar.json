@@ -45,7 +45,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_expression"
+                  "name": "statement_return"
                 }
               ]
             },

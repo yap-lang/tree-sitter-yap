@@ -146,15 +146,15 @@
       "required": false,
       "types": [
         {
-          "type": "_expression",
-          "named": true
-        },
-        {
           "type": "assignment",
           "named": true
         },
         {
           "type": "statement_if",
+          "named": true
+        },
+        {
+          "type": "statement_return",
           "named": true
         },
         {
@@ -288,6 +288,22 @@
     }
   },
   {
+    "type": "statement_return",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "statement_while",
     "named": true,
     "fields": {
@@ -322,15 +338,15 @@
       "required": false,
       "types": [
         {
-          "type": "_expression",
-          "named": true
-        },
-        {
           "type": "assignment",
           "named": true
         },
         {
           "type": "statement_if",
+          "named": true
+        },
+        {
+          "type": "statement_return",
           "named": true
         },
         {
@@ -388,6 +404,10 @@
   {
     "type": "literal_number",
     "named": true
+  },
+  {
+    "type": "return",
+    "named": false
   },
   {
     "type": "string_content",
