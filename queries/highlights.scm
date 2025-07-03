@@ -1,5 +1,6 @@
 (name field: (_)? @property) @variable
 
+(assignment name: (_) @function.definition type: (expression_unit))
 (assignment name: (_) @function.definition type: (expression_array_associative))
 (expression_call args: (_) name: (_) @function)
 
