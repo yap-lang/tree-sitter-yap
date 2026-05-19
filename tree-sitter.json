@@ -1,0 +1,41 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "yap",
+      "camelcase": "YAP",
+      "title": "YAP! Programming Language",
+      "scope": "source.yap",
+      "file-types": [
+        "yap"
+      ],
+      "injection-regex": "^yap$",
+      "class-name": "TreeSitterYap"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "Apache-2.0",
+    "description": "YAP! grammer for tree-sitter",
+    "authors": [
+      {
+        "name": "Valaphee",
+        "email": "iam@valaphee.com",
+        "url": "https://valaphee.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/yap-lang/tree-sitter-yap.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": false,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
