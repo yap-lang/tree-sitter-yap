@@ -1,5 +1,5 @@
 LANGUAGE_NAME := tree-sitter-yap
-HOMEPAGE_URL := https://github.com/yap-lang/tree-sitter-yap.git
+HOMEPAGE_URL := https://github.com/yap-lang/tree-sitter-yap
 VERSION := 0.1.0
 
 # repository

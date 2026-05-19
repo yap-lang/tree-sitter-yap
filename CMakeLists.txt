@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-yap
         VERSION "0.1.0"
         DESCRIPTION "YAP! grammer for tree-sitter"
-        HOMEPAGE_URL "https://github.com/yap-lang/tree-sitter-yap.git"
+        HOMEPAGE_URL "https://github.com/yap-lang/tree-sitter-yap"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)

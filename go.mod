@@ -1,4 +1,4 @@
-module github.com/yap-lang/tree-sitter-yap.git
+module github.com/yap-lang/tree-sitter-yap
 
 go 1.22
 
