@@ -47,7 +47,12 @@ export default grammar({
         ),
       ),
 
-    reference: ($) => seq($.identifier, repeat(seq(".", $.identifier))),
+    reference: ($) =>
+      seq(
+        field("variable", $.identifier),
+        repeat(seq(".", field("property", $.identifier))),
+      ),
+
     number: (_) => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
     string: (_) => /"([^"\r\n]|\\.)*"/,
     record: ($) => seq($._indent, repeat($.record_field), $._dedent),
@@ -60,6 +65,7 @@ export default grammar({
       ),
 
     comment: (_) => token(seq("#", /.*/)),
+
     identifier: (_) => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
   },
 
