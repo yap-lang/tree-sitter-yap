@@ -13,39 +13,49 @@ export default grammar({
   rules: {
     source_file: ($) => $.record,
 
-    expression: ($) =>
+    _expression: ($) =>
       choice(
         $.abstraction,
         $.application,
-        $.access,
+        $.reference,
         $.number,
         $.string,
         $.record,
       ),
+    _expression_primary: ($) =>
+      choice(
+        $.reference,
+        $.number,
+        $.string,
+        $.record,
+        seq("(", $._expression, ")"),
+      ),
+
     abstraction: ($) =>
       prec.right(
         seq(
           "\\",
           field("parameter", $.identifier),
-          field("body", $.expression),
+          field("body", $._expression),
         ),
       ),
     application: ($) =>
       prec.left(
-        seq(field("function", $.expression), field("argument", $.expression)),
+        seq(
+          field("function", $._expression),
+          field("argument", $._expression_primary),
+        ),
       ),
 
-    access: ($) =>
-      seq($.identifier, repeat(seq(".", field("field", $.identifier)))),
+    reference: ($) => seq($.identifier, repeat(seq(".", $.identifier))),
     number: (_) => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
-    string: ($) => seq('"', $.string_content, '"'),
-    string_content: ($) => /[^"]*/,
+    string: (_) => /"([^"\r\n]|\\.)*"/,
     record: ($) => seq($._indent, repeat($.record_field), $._dedent),
     record_field: ($) =>
       seq(
         field("field", $.identifier),
         ":",
-        field("value", $.expression),
+        field("value", $._expression),
         $._newline,
       ),
 
@@ -56,10 +66,6 @@ export default grammar({
   externals: ($) => [$._indent, $._dedent, $._newline],
 
   extras: ($) => [$.comment, /[\s]/],
-
-  inline: ($) => [$.expression],
-
-  supertypes: ($) => [$.expression],
 
   word: ($) => $.identifier,
 });
