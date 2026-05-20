@@ -3,8 +3,8 @@
   "grammars": [
     {
       "name": "yap",
-      "camelcase": "YAP",
-      "title": "YAP! Programming Language",
+      "camelcase": "Yap",
+      "title": "Yap",
       "scope": "source.yap",
       "file-types": [
         "yap"
@@ -16,7 +16,7 @@
   "metadata": {
     "version": "0.1.0",
     "license": "Apache-2.0",
-    "description": "YAP! grammer for tree-sitter",
+    "description": "Yap grammer for tree-sitter",
     "authors": [
       {
         "name": "Valaphee",

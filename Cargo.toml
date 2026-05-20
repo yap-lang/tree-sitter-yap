@@ -1,6 +1,6 @@
 [package]
 name = "tree-sitter-yap"
-description = "YAP! grammer for tree-sitter"
+description = "Yap grammer for tree-sitter"
 version = "0.1.0"
 authors = ["Valaphee <iam@valaphee.com>"]
 license = "Apache-2.0"

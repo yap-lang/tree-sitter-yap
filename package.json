@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-yap",
   "version": "0.1.0",
-  "description": "YAP! grammer for tree-sitter",
+  "description": "Yap grammer for tree-sitter",
   "type": "module",
   "repository": {
     "type": "git",
@@ -36,6 +36,8 @@
     "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
+    "eslint": "^9.35.0",
+    "eslint-config-treesitter": "^1.0.2",
     "prebuildify": "^6.0.1",
     "tree-sitter": "^0.25.0",
     "tree-sitter-cli": "^0.26.8"
@@ -50,6 +52,7 @@
   },
   "scripts": {
     "install": "node-gyp-build",
+    "lint": "eslint grammar.js",
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
     "test": "node --test bindings/node/*_test.js"

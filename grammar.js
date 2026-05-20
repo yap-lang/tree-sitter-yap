@@ -1,5 +1,5 @@
 /**
- * @file YAP! grammer for tree-sitter
+ * @file Yap grammer for tree-sitter
  * @author Valaphee <iam@valaphee.com>
  * @license Apache-2.0
  */
@@ -48,9 +48,16 @@ export default grammar({
       ),
 
     reference: ($) =>
-      seq(
-        field("variable", $.identifier),
-        repeat(seq(".", field("property", $.identifier))),
+      choice(
+        seq(
+          field("variable", $.identifier),
+          repeat(seq(token.immediate("."), field("property", $.identifier))),
+        ),
+        seq(
+          ".",
+          field("property", $.identifier),
+          repeat(seq(token.immediate("."), field("property", $.identifier))),
+        ),
       ),
 
     number: (_) => /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,

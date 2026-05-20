@@ -1,4 +1,4 @@
-"""YAP! grammer for tree-sitter"""
+"""Yap grammer for tree-sitter"""
 
 from importlib.resources import files as _files
 

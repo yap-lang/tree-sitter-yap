@@ -25,10 +25,10 @@ type NodeInfo =
  *
  * @example
  * import Parser from "tree-sitter";
- * import YAP from "tree-sitter-yap";
+ * import Yap from "tree-sitter-yap";
  *
  * const parser = new Parser();
- * parser.setLanguage(YAP);
+ * parser.setLanguage(Yap);
  */
 declare const binding: {
   /**
