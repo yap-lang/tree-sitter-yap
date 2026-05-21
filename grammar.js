@@ -8,7 +8,7 @@
 // @ts-check
 
 export default grammar({
-  name: "yap",
+  name: 'yap',
 
   rules: {
     source_file: ($) => $.record,
@@ -28,35 +28,35 @@ export default grammar({
         $.number,
         $.string,
         $.record,
-        seq("(", $._expression, ")"),
+        seq('(', $._expression, ')'),
       ),
 
     abstraction: ($) =>
       prec.right(
         seq(
-          "\\",
-          field("parameter", $.identifier),
-          field("body", $._expression),
+          '\\',
+          field('parameter', $.identifier),
+          field('body', $._expression),
         ),
       ),
     application: ($) =>
       prec.left(
         seq(
-          field("function", $._expression),
-          field("argument", $._expression_primary),
+          field('function', $._expression),
+          field('argument', $._expression_primary),
         ),
       ),
 
     reference: ($) =>
       choice(
         seq(
-          field("variable", $.identifier),
-          repeat(seq(token.immediate("."), field("property", $.identifier))),
+          field('variable', $.identifier),
+          repeat(seq(token.immediate('.'), field('property', $.identifier))),
         ),
         seq(
-          ".",
-          field("property", $.identifier),
-          repeat(seq(token.immediate("."), field("property", $.identifier))),
+          '.',
+          field('property', $.identifier),
+          repeat(seq(token.immediate('.'), field('property', $.identifier))),
         ),
       ),
 
@@ -65,13 +65,13 @@ export default grammar({
     record: ($) => seq($._indent, repeat($.record_field), $._dedent),
     record_field: ($) =>
       seq(
-        field("field", $.identifier),
-        ":",
-        field("value", $._expression),
+        field('field', $.identifier),
+        ':',
+        field('value', $._expression),
         $._newline,
       ),
 
-    comment: (_) => token(seq("#", /.*/)),
+    comment: (_) => token(seq('#', /.*/)),
 
     identifier: (_) => /[_\p{XID_Start}][_\p{XID_Continue}]*/u,
   },
