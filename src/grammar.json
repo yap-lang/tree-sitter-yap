@@ -3,9 +3,12 @@
   "name": "yap",
   "word": "identifier",
   "rules": {
-    "source_file": {
-      "type": "SYMBOL",
-      "name": "record"
+    "root": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "record_field"
+      }
     },
     "_expression": {
       "type": "CHOICE",

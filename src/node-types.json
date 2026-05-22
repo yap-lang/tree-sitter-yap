@@ -207,16 +207,16 @@
     }
   },
   {
-    "type": "source_file",
+    "type": "root",
     "named": true,
     "root": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "record",
+          "type": "record_field",
           "named": true
         }
       ]

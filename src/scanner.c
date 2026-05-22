@@ -14,7 +14,7 @@ typedef struct {
 
 void * tree_sitter_yap_external_scanner_create() {
     Scanner *scanner = ts_calloc(1, sizeof(Scanner));
-    array_push(&scanner->indents, -1);
+    array_push(&scanner->indents, 0);
     return scanner;
 }
 
@@ -28,8 +28,13 @@ unsigned tree_sitter_yap_external_scanner_serialize(void *payload, char *buffer)
     Scanner *scanner = (Scanner *)payload;
     size_t size = 0;
 
-    for (uint32_t i = 1; i < scanner->indents.size && size < TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
-        int16_t indent = *array_get(&scanner->indents, i);
+    for (unsigned i = 1; i < scanner->indents.size; i++) {
+        if (size + 2 > TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
+            break;
+        }
+
+        uint16_t indent = *array_get(&scanner->indents, i);
+
         buffer[size++] = (char)(indent & 0xFF);
         buffer[size++] = (char)((indent >> 8) & 0xFF);
     }
@@ -40,15 +45,14 @@ unsigned tree_sitter_yap_external_scanner_serialize(void *payload, char *buffer)
 void tree_sitter_yap_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
     Scanner *scanner = (Scanner *)payload;
     array_delete(&scanner->indents);
-    array_push(&scanner->indents, -1);
+    array_push(&scanner->indents, 0);
 
-    if (length > 0) {
-        size_t size = 0;
+    for (unsigned i = 0; i + 1 < length; i += 2) {
+        uint16_t indent =
+            (uint16_t)(uint8_t)buffer[i] |
+            ((uint16_t)(uint8_t)buffer[i + 1] << 8);
 
-        for (; size + 1 < length; size += 2) {
-            int16_t indent = (unsigned char)buffer[size] | ((unsigned char)buffer[size + 1] << 8);
-            array_push(&scanner->indents, indent);
-        }
+        array_push(&scanner->indents, indent);
     }
 }
 
@@ -57,8 +61,8 @@ bool tree_sitter_yap_external_scanner_scan(void *payload, TSLexer *lexer, const 
 
     lexer->mark_end(lexer);
 
-    bool eol = scanner->indents.size == 1;
-    int16_t indent = 0;
+    bool eol = false;
+    uint16_t indent = 0;
     for (;;) {
         if (lexer->lookahead == ' ') {
             indent += 1;
@@ -71,8 +75,8 @@ bool tree_sitter_yap_external_scanner_scan(void *payload, TSLexer *lexer, const 
             indent = 0;
             lexer->advance(lexer, true);
         } else if (lexer->eof(lexer)) {
-            indent = -1;
             eol = true;
+            indent = 0;
             break;
         } else {
             break;
