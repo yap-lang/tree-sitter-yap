@@ -50,7 +50,7 @@ export default grammar({
     reference: ($) =>
       choice(
         seq(
-          field('variable', $.identifier),
+          field('parameter', $.identifier),
           repeat(seq(token.immediate('.'), field('property', $.identifier))),
         ),
         seq(

@@ -139,7 +139,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "variable",
+              "name": "parameter",
               "content": {
                 "type": "SYMBOL",
                 "name": "identifier"

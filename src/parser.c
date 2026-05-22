@@ -13,7 +13,7 @@
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 14
 #define EXTERNAL_TOKEN_COUNT 3
-#define FIELD_COUNT 8
+#define FIELD_COUNT 7
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
 #define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 9
@@ -206,7 +206,6 @@ enum ts_field_identifiers {
   field_parameter = 5,
   field_property = 6,
   field_value = 7,
-  field_variable = 8,
 };
 
 static const char * const ts_field_names[] = {
@@ -218,7 +217,6 @@ static const char * const ts_field_names[] = {
   [field_parameter] = "parameter",
   [field_property] = "property",
   [field_value] = "value",
-  [field_variable] = "variable",
 };
 
 static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
@@ -234,12 +232,12 @@ static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
 
 static const TSFieldMapEntry ts_field_map_entries[] = {
   [0] =
-    {field_variable, 0},
+    {field_parameter, 0},
   [1] =
     {field_property, 1},
   [2] =
+    {field_parameter, 0},
     {field_property, 1, .inherited = true},
-    {field_variable, 0},
   [4] =
     {field_field, 0},
     {field_value, 2},

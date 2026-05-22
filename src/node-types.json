@@ -184,8 +184,8 @@
     "type": "reference",
     "named": true,
     "fields": {
-      "property": {
-        "multiple": true,
+      "parameter": {
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -194,8 +194,8 @@
           }
         ]
       },
-      "variable": {
-        "multiple": false,
+      "property": {
+        "multiple": true,
         "required": false,
         "types": [
           {
